@@ -38,7 +38,7 @@ export default function Navbar() {
           <Link href="/" className="transition-colors hover:text-primary">
             Home
           </Link>
-          <Link href="/Blogs" className="transition-colors hover:text-primary">
+          <Link href="/blog/Blogs" className="transition-colors hover:text-primary">
             Blogs
           </Link>
           <Link href="/about" className="transition-colors hover:text-primary">
