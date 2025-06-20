@@ -38,26 +38,26 @@ export default function Navbar() {
           <Link href="/" className="transition-colors hover:text-primary">
             Home
           </Link>
-          <Link href="/blog/Blogs" className="transition-colors hover:text-primary">
+          <Link href="/blog/Blogs" className="transition-colors hover:text-primary font-bold">
             Blogs
           </Link>
-          <Link href="/about" className="transition-colors hover:text-primary">
-            About
-          </Link>
+         
         </nav>
 
         {/* Right Controls */}
         <div className="flex items-center space-x-2">
-          <Link href="/ai-assist">
+         <SignedIn>
+           <Link href="/blog/new">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               transition={{ type: "spring", stiffness: 300 }}
               className="rounded-md border border-primary bg-transparent px-4 py-2 text-sm font-semibold text-primary hover:bg-primary hover:text-white"
             >
-              AI Assistant
+              AI Blog Generate
             </motion.button>
           </Link>
+         </SignedIn>
 
    
 

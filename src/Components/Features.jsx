@@ -32,7 +32,7 @@ export default function Features() {
       <h1 className='font-bold text-3xl'>BlogPosts Features</h1>
     </div>
     
-    <section className="max-w-7xl mx-auto px-4 md:px-10 py-20 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+    <section className="max-w-7xl mx-auto px-4 md:px-10  grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
      
       {/* Left - Hover Cards */}
       <div className="max-w-2xl w-full">

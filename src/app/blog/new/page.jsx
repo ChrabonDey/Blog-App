@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useUser } from "@clerk/nextjs";
+import Swal from "sweetalert2";
 
 export default function NewBlogPage() {
   const { user } = useUser();
@@ -20,36 +21,48 @@ export default function NewBlogPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    const blogData = {
-      ...formData,
-      tags: formData.tags.split(",").map((t) => t.trim()),
-      userId: user.id,
-      userEmail: user.primaryEmailAddress.emailAddress,
-    };
+  const blogData = {
+    ...formData,
+    tags: formData.tags.split(",").map((t) => t.trim()),
+    userId: user.id,
+    userEmail: user.primaryEmailAddress.emailAddress,
+  };
 
-    const response = await fetch("/api/blog", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(blogData),
+  const response = await fetch("/api/blog", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(blogData),
+  });
+
+  if (response.ok) {
+    Swal.fire({
+      icon: 'success',
+      title: 'Blog Posted!',
+      text: 'Your blog has been successfully posted.',
     });
 
-    if (response.ok) {
-      alert("Blog posted successfully!");
-      setStatus("✅ Blog posted successfully!");
-      setFormData({
-        title: "",
-        content: "",
-        readTime: "",
-        tags: "",
-        coverImage: "",
-      });
-    } else {
-      setStatus("❌ Failed to post blog.");
-    }
-  };
+    setFormData({
+      title: "",
+      content: "",
+      readTime: "",
+      tags: "",
+      coverImage: "",
+    });
+    setStatus(""); // Optional: Clear status message
+  } else {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Failed to post blog. Please try again.',
+    });
+
+    setStatus("❌ Failed to post blog.");
+  }
+};
+
 
   const handleGenerateBlog = async () => {
     if (!formData.title) {
@@ -99,7 +112,7 @@ export default function NewBlogPage() {
           <button
             type="button"
             onClick={handleGenerateBlog}
-            className="bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700"
+            className="bg-green-600 text-white px-5 py-1 flex justify-center hover:bg-green-700 rounded-2xl"
           >
             Generate with AI
           </button>
