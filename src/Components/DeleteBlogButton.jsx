@@ -1,69 +1,41 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@clerk/nextjs';
+import { useAuth } from '@clerk/nextjs'; // ✅ useAuth from Clerk
 import React from 'react';
-import Swal from 'sweetalert2';
 
 export default function DeleteBlogButton({ blogId }) {
-  const { getToken } = useAuth();
+  const { getToken } = useAuth(); // ✅ this gives us the session token
   const router = useRouter();
 
   const handleDelete = async () => {
-    const result = await Swal.fire({
-      title: 'Are you sure?',
-      text: 'This blog will be permanently deleted!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Yes, delete it!',
-    });
-
-    if (!result.isConfirmed) return;
+    const confirmDelete = confirm('Are you sure you want to delete this blog?');
+    if (!confirmDelete) return;
 
     try {
-      const token = await getToken();
+      const token = await getToken(); // 🔑 GET Clerk JWT token
 
       const res = await fetch(`/api/blog/${blogId}`, {
         method: 'DELETE',
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`, // ✅ send it in headers
         },
       });
 
       if (res.ok) {
-        await Swal.fire({
-          icon: 'success',
-          title: 'Deleted!',
-          text: 'Your blog has been deleted.',
-          confirmButtonColor: '#2563eb',
-        });
-
-        router.push('/dashboard');
+        router.push('/dashboard'); // ✅ success redirect
       } else {
         const data = await res.json();
-        Swal.fire({
-          icon: 'error',
-          title: 'Failed!',
-          text: data.error || 'Could not delete blog.',
-        });
+        alert(data.error || 'Failed to delete blog');
       }
     } catch (err) {
+      alert('Error deleting blog');
       console.error(err);
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong while deleting.',
-      });
     }
   };
 
   return (
-    <button
-      onClick={handleDelete}
-      className="text-red-600 hover:underline"
-    >
+    <button onClick={handleDelete} className="text-red-600 hover:underline">
       Delete
     </button>
   );

@@ -10,10 +10,7 @@ import {
   UserButton,
   useUser,
 } from "@clerk/nextjs";
-
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
 import Image from "next/image";
 import logo from "../../public/Gemini_Generated_Image_lgg6o8lgg6o8lgg6.png";
 
@@ -64,7 +61,7 @@ export default function Navbar() {
           <SignedIn>
             <Link
               href="/dashboard"
-              className={cn(buttonVariants({ variant: "ghost", size: "sm" }))}
+             className="flex items-center px-4 py-1 border-2 border-black rounded-md text-sm font-semibold transition-colors hover:bg-gray-100 hover:text-black"
             >
               Dashboard
             </Link>
@@ -79,16 +76,13 @@ export default function Navbar() {
           <SignedOut>
             <SignInButton mode="modal">
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button variant="outline" size="sm">
-                  Sign In
-                </Button>
+               <button className="flex px-3 py-1 border-2 border-black">Sign In</button>
+              
               </motion.div>
             </SignInButton>
             <SignUpButton mode="modal">
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button variant="secondary" size="sm">
-                  Sign Up
-                </Button>
+                <button className="flex px-3 py-1 border-2 border-black">Sign Up</button>
               </motion.div>
             </SignUpButton>
           </SignedOut>
