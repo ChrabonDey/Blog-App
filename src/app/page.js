@@ -4,7 +4,6 @@ import Footer from "@/Components/Footer";
 import Hero from "@/Components/Hero";
 import RecentBlogsSection from "@/Components/RecentBlogsSection";
 
-import Image from "next/image";
 
 
 

@@ -10,7 +10,6 @@ import {
   UserButton,
   useUser,
 } from "@clerk/nextjs";
-import { cn } from "@/lib/utils";
 import Image from "next/image";
 import logo from "../../public/Gemini_Generated_Image_lgg6o8lgg6o8lgg6.png";
 
