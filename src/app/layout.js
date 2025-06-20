@@ -3,7 +3,6 @@ import "./globals.css";
 import Navbar from "@/Components/Navbar";
 import { ClerkProvider } from '@clerk/nextjs';
 
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -21,15 +20,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-<ClerkProvider>
-      <html lang="en">
-        <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <Navbar></Navbar>
-        {children}
-      </body>
-    </html>
-</ClerkProvider>
+    <ClerkProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+          {/* If Navbar uses dynamic values, wrap with suppressHydrationWarning */}
+          <div suppressHydrationWarning>
+            <Navbar />
+          </div>
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
