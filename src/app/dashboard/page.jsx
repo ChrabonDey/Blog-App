@@ -3,7 +3,6 @@ import { currentUser } from '@clerk/nextjs/server';
 import dbConnect from '@/lib/dbConnect';
 import Link from 'next/link';
 import { ObjectId } from 'mongodb';
-import DeleteBlogButton from '@/components/DeleteBlogButton';
 
 export default async function Dashboard() {
   const user = await currentUser();
@@ -36,7 +35,7 @@ export default async function Dashboard() {
                 <Link href={`/blog/edit/${blog._id}`} className="text-blue-600 hover:underline">Edit</Link>
                 <Link href={`/blog/${blog._id}`} className="text-green-600 hover:underline">View</Link>
               </div>
-              <DeleteBlogButton blogId={blog._id.toString()} />
+            
             </div>
           </div>
         )) : (
